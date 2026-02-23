@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oracli Connectivity Report</title>
+    <style>
+        :root {
+            --bg: #0f1115;
+            --card-bg: #1a1d23;
+            --text: #e0e0e0;
+            --accent: #3b82f6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --border: #2d3748;
+        }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        header {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1rem;
+        }
+        h1 {
+            font-size: 2rem;
+            margin: 0;
+            color: var(--accent);
+        }
+        .subtitle {
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.25rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #2d3748;
+        }
+        .status-item:last-child {
+            border-bottom: none;
+        }
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .badge.active {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+        .badge.system {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--accent);
+        }
+        code {
+            background: #2d3748;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-family: monospace;
+        }
+        .tools-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .tools-list li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: flex-start;
+        }
+        .tools-list li::before {
+            content: "⚡";
+            margin-right: 0.75rem;
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Oracli Connectivity Report</h1>
+            <p class="subtitle">Generated: <script>document.write(new Date().toLocaleString())</script></p>
+        </header>
+
+        <div class="grid">
+            <div class="card">
+                <h2>🧠 Core System</h2>
+                <div class="status-item">
+                    <span>Identity</span>
+                    <span class="badge system">Oracli</span>
+                </div>
+                <div class="status-item">
+                    <span>Model</span>
+                    <code>google/gemini-3-flash-preview</code>
+                </div>
+                <div class="status-item">
+                    <span>Swarm Protocol</span>
+                    <span class="badge active">BMAD-CE</span>
+                </div>
+                <div class="status-item">
+                    <span>Memory Engine</span>
+                    <code>pgvector (Remote EC2)</code>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🔌 Active Composio Connections</h2>
+                <div class="status-item">
+                    <span>Jira</span>
+                    <span class="badge active">ACTIVE (x2)</span>
+                </div>
+                <div class="status-item">
+                    <span>GitHub</span>
+                    <span class="badge active">ACTIVE</span>
+                </div>
+                <div class="status-item">
+                    <span>Confluence</span>
+                    <span class="badge active">ACTIVE</span>
+                </div>
+                <div class="status-item">
+                    <span>Slack</span>
+                    <span class="badge active">ACTIVE</span>
+                </div>
+                <div class="status-item">
+                    <span>Vercel</span>
+                    <span class="badge active">ACTIVE</span>
+                </div>
+                <div class="status-item">
+                    <span>Supabase</span>
+                    <span class="badge active">ACTIVE</span>
+                </div>
+                <div class="status-item">
+                    <span>Stripe</span>
+                    <span class="badge active">ACTIVE</span>
+                </div>
+                 <div class="status-item">
+                    <span>LinkedIn</span>
+                    <span class="badge active">ACTIVE</span>
+                </div>
+                 <div class="status-item">
+                    <span>Exa (Search)</span>
+                    <span class="badge active">ACTIVE</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🛠️ High-Level Capabilities</h2>
+            <ul class="tools-list">
+                <li>
+                    <div>
+                        <strong>Full Lifecycle Jira</strong><br>
+                        <small style="color: #9ca3af;">Projects, Sprints, Issues, Comments (via Proxy)</small>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <strong>Full Lifecycle GitHub</strong><br>
+                        <small style="color: #9ca3af;">Repos, PRs, Actions, Pages (via Proxy)</small>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <strong>Confluence Knowledge Management</strong><br>
+                        <small style="color: #9ca3af;">Spaces, Pages, Search, Attachments (via Proxy)</small>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <strong>Multi-Agent Delegation</strong><br>
+                        <small style="color: #9ca3af;">Subagents: docs, code, infra, general</small>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="card" style="margin-top: 1.5rem;">
+            <h2>🖥️ Environment</h2>
+            <div class="status-item">
+                <span>OS</span>
+                <code>Linux (AWS/Docker)</code>
+            </div>
+            <div class="status-item">
+                <span>Node.js</span>
+                <code>v22.22.0</code>
+            </div>
+            <div class="status-item">
+                <span>Workspace</span>
+                <code>/home/node/.openclaw/workspace</code>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
