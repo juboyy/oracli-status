@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convex Integration & Data Schema | Revenue-OS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        body { background-color: #0f172a; color: #e2e8f0; font-family: system-ui, sans-serif; }
+        .card { background-color: #1e293b; border: 1px solid #334155; border-radius: 0.5rem; padding: 1.5rem; }
+        h1, h2, h3 { color: #f8fafc; font-weight: 700; }
+        code { background-color: #334155; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: monospace; color: #a5f3fc; }
+        pre { background-color: #0f172a; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; border: 1px solid #334155; }
+        .badge { display: inline-block; padding: 0.25rem 0.5rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
+        .badge-blue { background-color: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+        .badge-green { background-color: rgba(34, 197, 94, 0.2); color: #4ade80; }
+        .badge-purple { background-color: rgba(168, 85, 247, 0.2); color: #c084fc; }
+    </style>
+</head>
+<body class="p-8 max-w-7xl mx-auto">
+    
+    <header class="mb-12 border-b border-slate-700 pb-6">
+        <div class="flex justify-between items-center">
+            <div>
+                <h1 class="text-4xl mb-2">Convex Integration Architecture</h1>
+                <p class="text-slate-400">Deep Dive into Revenue-OS Observability Schema</p>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-slate-500">Last Updated</div>
+                <div class="font-mono text-emerald-400"><script>document.write(new Date().toLocaleString())</script></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Architecture Diagram -->
+        <div class="col-span-1 lg:col-span-3 card">
+            <h2 class="text-2xl mb-6 flex items-center gap-2">
+                <span class="text-blue-500">📐</span> System Architecture
+            </h2>
+            <div class="mermaid">
+                graph LR
+                    subgraph EC2["AWS EC2 (Agent Host)"]
+                        Agent["OpenClaw Agent (LLM)"]
+                        Logs["Session Logs (.jsonl)"]
+                        Cron["Cron Job (*/1 min)"]
+                        Script["push_full_dashboard.py"]
+                    end
+                    
+                    subgraph Convex["Convex Backend"]
+                        Ingest["API: /ingest"]
+                        DB[(Convex DB)]
+                    end
+                    
+                    subgraph Frontend["Vercel Dashboard"]
+                        UI["Agent Orchestrator UI"]
+                    end
+
+                    Agent -->|Writes| Logs
+                    Cron -->|Triggers| Script
+                    Script -->|Parses| Logs
+                    Script -->|POST JSON| Ingest
+                    Ingest -->|Stores| DB
+                    UI -->|Queries| DB
+            </div>
+        </div>
+
+        <!-- Schema Definition -->
+        <div class="col-span-1 lg:col-span-2 space-y-8">
+            <div class="card">
+                <h2 class="text-2xl mb-4 text-purple-400">Data Schema Definitions</h2>
+                
+                <!-- Agents Table -->
+                <div class="mb-8">
+                    <h3 class="text-xl mb-2 flex items-center gap-2">
+                        <span class="badge-blue">Table</span> agents
+                    </h3>
+                    <p class="text-slate-400 mb-4">Stores the current state and performance metrics of all active agents.</p>
+                    <pre><code class="language-typescript">interface Agent {
+  agentId: string;          // "main", "code", "infra"
+  name: string;             // Display name
+  emoji: string;            // UI Icon
+  status: "idle" | "working" | "error";
+  model: string;            // "gemini-3-flash-preview"
+  provider: "google" | "anthropic";
+  current_task: string;     // Real-time activity
+  tasks_completed: number;  // Aggregated count
+  total_cost: number;       // USD (cumulative)
+  roi: {
+    hoursPerWeekSaved: number;
+    costPerHourHuman: number; // Default: $50
+    weeklySavings: number;
+    roiMultiplier: number;
+  };
+  skills: string[];         // ["react", "docker"]
+}</code></pre>
+                </div>
+
+                <!-- Daily Costs Table -->
+                <div class="mb-8">
+                    <h3 class="text-xl mb-2 flex items-center gap-2">
+                        <span class="badge-green">Table</span> daily_costs
+                    </h3>
+                    <p class="text-slate-400 mb-4">Aggregated financial metrics for billing charts.</p>
+                    <pre><code class="language-typescript">interface DailyCost {
+  date: string;       // "YYYY-MM-DD"
+  total: number;      // USD
+  google: number;     // USD
+  anthropic: number;  // USD
+  openai: number;     // USD
+}</code></pre>
+                </div>
+
+                <!-- Missions Table -->
+                <div>
+                    <h3 class="text-xl mb-2 flex items-center gap-2">
+                        <span class="badge-purple">Table</span> missions
+                    </h3>
+                    <p class="text-slate-400 mb-4">High-level objectives tracking (Epic level).</p>
+                    <pre><code class="language-typescript">interface Mission {
+  missionId: string;
+  name: string;
+  description: string;
+  status: "active" | "completed" | "blocked";
+  priority: "high" | "medium" | "low";
+  progress: number;   // 0-100%
+  cost: number;       // Aggregated form tasks
+  tokens_used: number;
+  deadline: string;   // ISO Date
+}</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Integration Details -->
+        <div class="col-span-1 space-y-8">
+            <div class="card">
+                <h2 class="text-xl mb-4">🔗 Integrations</h2>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <div class="bg-blue-900/30 p-2 rounded">🤖</div>
+                        <div>
+                            <div class="font-bold">OpenClaw Logs</div>
+                            <div class="text-sm text-slate-400">Parses <code>.jsonl</code> session files for token usage and costs.</div>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <div class="bg-green-900/30 p-2 rounded">☁️</div>
+                        <div>
+                            <div class="font-bold">EC2 Host</div>
+                            <div class="text-sm text-slate-400">Runs <code>push_full_dashboard.py</code> as a cron job (every 1 min).</div>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <div class="bg-orange-900/30 p-2 rounded">📊</div>
+                        <div>
+                            <div class="font-bold">Convex Ingest</div>
+                            <div class="text-sm text-slate-400">Receives single JSON payload with all collections via POST.</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2 class="text-xl mb-4">💰 Cost Analysis</h2>
+                <div class="text-sm text-slate-400 mb-4">
+                    Current cost calculation strategy based on model pricing:
+                </div>
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="text-left text-slate-500 border-b border-slate-700">
+                            <th class="pb-2">Model</th>
+                            <th class="pb-2">Input/1M</th>
+                            <th class="pb-2">Output/1M</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-slate-800">
+                            <td class="py-2 text-blue-400">Gemini 3 Pro</td>
+                            <td class="py-2">$2.00</td>
+                            <td class="py-2">$8.00</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 text-green-400">Gemini 3 Flash</td>
+                            <td class="py-2">$0.10</td>
+                            <td class="py-2">$0.40</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="mt-4 p-3 bg-yellow-900/20 rounded border border-yellow-700/50 text-xs text-yellow-200">
+                    ⚠️ <b>Alert:</b> High context (100k+) on Pro model = ~$0.20 per interaction. Recommend frequent session resets.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>mermaid.initialize({startOnLoad:true, theme: 'dark'});</script>
+</body>
+</html>
