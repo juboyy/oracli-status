@@ -2,70 +2,91 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Status Report - Sprint 2 - revenue OS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oracli Ops Dashboard - Revenue OS</title>
     <style>
-        body { font-family: sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 40px auto; padding: 20px; }
-        h1 { color: #2c3e50; border-bottom: 2px solid #eee; }
-        .status-badge { padding: 4px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold; }
-        .in-progress { background: #d1ecf1; color: #0c5460; }
-        .backlog { background: #e2e3e5; color: #383d41; }
-        .done { background: #d4edda; color: #155724; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #eee; }
-        th { background: #f8f9fa; }
+        :root { --bg: #0d1117; --card: #161b22; --text: #c9d1d9; --accent: #238636; --border: #30363d; --progress: #2ea043; }
+        body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; margin: 0; padding: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
+        .card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 20px; }
+        h1, h2, h3 { color: #f0f6fc; margin-top: 0; }
+        .badge { background: var(--accent); color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px; }
+        .status-delivered { color: #3fb950; font-weight: bold; }
+        .active-mission { color: #f85149; font-size: 1.2em; font-weight: bold; margin-bottom: 15px; display: block; }
+        .objective-list { list-style: none; padding: 0; }
+        .objective-list li::before { content: "▹ "; color: var(--accent); }
+        .timeline-item { border-left: 2px solid var(--border); padding-left: 15px; margin-bottom: 15px; position: relative; }
+        .timeline-item.active { border-left-color: var(--progress); }
+        .timeline-item::after { content: ""; position: absolute; left: -6px; top: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--border); }
+        .timeline-item.active::after { background: var(--progress); }
+        table { width: 100%; font-size: 14px; border-collapse: collapse; }
+        td { padding: 8px 0; border-bottom: 1px solid #21262d; }
     </style>
 </head>
 <body>
-    <h1>Sprint 2 Status: revenue OS</h1>
-    
-    <h3>🚀 Status Atual</h3>
-    <p>A Sprint 1 (Core Stripe) foi finalizada. A Sprint 2 foca em <strong>Inteligência de Billing e Agentes AI</strong>.</p>
+    <div style="max-width: 1200px; margin: 0 auto;">
+        <div class="header">
+            <h1>Mission Control: Revenue OS</h1>
+            <div class="badge">LIVE - 25/02/2026 08:45 UTC</div>
+        </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Issue</th>
-                <th>Resumo</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>SCRUM-297</td>
-                <td>Página de Pricing Pública</td>
-                <td><span class="status-badge in-progress">EM ANDAMENTO</span></td>
-            </tr>
-            <tr>
-                <td>SCRUM-1633</td>
-                <td>Health Check: jira-create-issue skill</td>
-                <td><span class="status-badge backlog">BACKLOG</span></td>
-            </tr>
-            <tr>
-                <td>US-08</td>
-                <td>Registrar eventos de uso e Aplicar overage</td>
-                <td><span class="status-badge backlog">PLANEJADO</span></td>
-            </tr>
-            <tr>
-                <td>US-31</td>
-                <td>Implementação de Agentes AI (Supervisor/Vendas)</td>
-                <td><span class="status-badge backlog">PLANEJADO</span></td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="grid">
+            <div class="card">
+                <h2>📊 Overall Progress</h2>
+                <p>Deliverables: <strong>28/28</strong></p>
+                <div style="background: var(--border); height: 10px; border-radius: 5px; overflow: hidden;">
+                    <div style="background: var(--progress); width: 100%; height: 100%;"></div>
+                </div>
+                <p>Files: 204 | Lines: 11,682 | Taxa: 100%</p>
+            </div>
 
-    <h3>📚 Referências Confluence</h3>
-    <ul>
-        <li><strong>EP-04: Assinaturas & Billing</strong> - <a href="https://vivaldi-revopos.atlassian.net/wiki/spaces/VR/pages/17563651/EP-04+Assinaturas+Billing">Ver no Confluence</a></li>
-        <li><strong>Mission Control X</strong> - <a href="https://vivaldi-revopos.atlassian.net/wiki/spaces/VR/pages/16711684/Mission+Control+X+-+Documenta+o+Oficial">Arquitetura Oficial</a></li>
-    </ul>
+            <div class="card">
+                <h2>🎯 Active Mission</h2>
+                <span class="active-mission">AI Intelligence Layer: Ontology & Knowledge Graph</span>
+                <ul class="objective-list">
+                    <li>Provisionamento Memgraph Cloud</li>
+                    <li>Mapeamento Semântico da Ontologia</li>
+                    <li>Sincronização via Edge Functions</li>
+                </ul>
+            </div>
 
-    <h3>💡 Próximos Passos Sugeridos</h3>
-    <ol>
-        <li>Validar o schema da ontologia para o Memgraph (US-28).</li>
-        <li>Concluir a Página de Pricing Pública (SCRUM-297).</li>
-        <li>Iniciar o setup do Worker Python no Railway para os algoritmos de AI.</li>
-    </ol>
-    <hr>
-    <p><small>Relatório gerado automaticamente por Oracli em 25/02/2026.</small></p>
+            <div class="card">
+                <h2>⏳ Timeline</h2>
+                <div class="timeline-item active">
+                    <strong>SCRUM-297:</strong> Pricing Page Finalization<br>
+                    <small>Today - IN PROGRESS</small>
+                </div>
+                <div class="timeline-item">
+                    <strong>US-28:</strong> Memgraph Cloud Setup<br>
+                    <small>Next 4h - TODO</small>
+                </div>
+                <div class="timeline-item">
+                    <strong>US-29:</strong> Ontology Schema Design<br>
+                    <small>Tomorrow - TODO</small>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>📅 Weekly Agenda</h2>
+                <table>
+                    <tr><td><strong>Quarta (Hoje):</strong></td><td>Pricing Page, Memgraph Setup, Schema</td></tr>
+                    <tr><td><strong>Quinta:</strong></td><td>Edge Functions, Semantic Mapping</td></tr>
+                    <tr><td><strong>Sexta:</strong></td><td>AI Agent Integration, Dashboard v3</td></tr>
+                    <tr><td><strong>Sábado:</strong></td><td>QA & Stress Test: Split/Billing</td></tr>
+                    <tr><td><strong>Domingo:</strong></td><td>Review & Sprint 3 Planning</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top: 20px;">
+            <h2>✅ Recent Milestones</h2>
+            <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                <div><span class="status-delivered">DONE:</span> parseJsonb Helper<br><small>Async parsing via Web Workers</small></div>
+                <div><span class="status-delivered">DONE:</span> Connectivity Report<br><small>Pairing & RPC Fixed</small></div>
+                <div><span class="status-delivered">DONE:</span> Sprint 1 Closure<br><small>Core Stripe Integration</small></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
