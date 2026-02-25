@@ -339,7 +339,7 @@
   <div class="header-badge">📊 Relatório de Performance</div>
   <h1>OraCLI — ROI Report</h1>
   <div class="subtitle">Multi-Agent AI System • Sprint 2 Gap Remediation</div>
-  <div class="date">25 de Fevereiro de 2026 • Período: 27.3 horas de operação</div>
+  <div class="date">25 de Fevereiro de 2026 • Remediação: 93 minutos | Sistema ativo: 27.3 horas</div>
 </div>
 
 <div class="container">
@@ -347,24 +347,51 @@
   <!-- Hero Stats -->
   <div class="hero-grid">
     <div class="hero-card green">
-      <div class="label">ROI</div>
+      <div class="label">ROI da Remediação</div>
       <div class="value green">9.374%</div>
-      <div class="detail">Retorno sobre investimento operacional</div>
+      <div class="detail">Sistema completo (27.3h de operação)</div>
     </div>
     <div class="hero-card">
-      <div class="label">Valor Criado</div>
-      <div class="value accent">$5.720</div>
-      <div class="detail">114.4h × $50/h (taxa de engenheiro)</div>
+      <div class="label">Tempo de Remediação</div>
+      <div class="value accent">93 min</div>
+      <div class="detail">21.5h humanas em 1h33min (13.9× faster)</div>
     </div>
     <div class="hero-card yellow">
-      <div class="label">Custo Operacional</div>
-      <div class="value yellow">$60.38</div>
-      <div class="detail">Google AI Studio (único custo variável)</div>
+      <div class="label">Custo da Remediação</div>
+      <div class="value yellow">~$10</div>
+      <div class="detail">279 traces • Google AI Studio only</div>
     </div>
     <div class="hero-card blue">
-      <div class="label">Custo por Hora Salva</div>
-      <div class="value blue">$0.53</div>
-      <div class="detail">vs $50/h de um engenheiro sênior</div>
+      <div class="label">Valor Gerado</div>
+      <div class="value blue">$1.076</div>
+      <div class="detail">21.5h × $50/h engenheiro sênior</div>
+    </div>
+  </div>
+
+  <!-- System Totals -->
+  <div class="section">
+    <h2 class="section-title">🌐 Totais do Sistema (27.3h de operação)</h2>
+    <div class="hero-grid">
+      <div class="hero-card green">
+        <div class="label">ROI Total</div>
+        <div class="value green">9.374%</div>
+        <div class="detail">$60.38 custo → $5.720 valor</div>
+      </div>
+      <div class="hero-card">
+        <div class="label">Valor Criado Total</div>
+        <div class="value accent">$5.720</div>
+        <div class="detail">114.4h × $50/h</div>
+      </div>
+      <div class="hero-card yellow">
+        <div class="label">Custo Operacional Total</div>
+        <div class="value yellow">$60.38</div>
+        <div class="detail">Google AI Studio (único custo variável)</div>
+      </div>
+      <div class="hero-card blue">
+        <div class="label">Custo por Hora Salva</div>
+        <div class="value blue">$0.53</div>
+        <div class="detail">vs $50/h de um engenheiro sênior</div>
+      </div>
     </div>
   </div>
 
@@ -372,9 +399,11 @@
   <div class="section">
     <h2 class="section-title">📋 Sumário Executivo</h2>
     <div class="card">
-      <p>O sistema OraCLI — composto por 1 agente principal (Opus) e 4 subagentes especializados — executou a remediação completa dos gaps da Sprint 2 do revenue-OS em <strong>27.3 horas de operação contínua</strong>, processando <strong>1.755 chamadas de LLM</strong> e gerando <strong>572K tokens de output</strong> (equivalente a ~1.144 páginas de documentação técnica).</p>
+      <p>O sistema OraCLI — composto por 1 agente principal (Opus) e 4 subagentes especializados — executou a remediação completa dos gaps da Sprint 2 do revenue-OS em <strong>93 minutos</strong> (21:24 às 22:58 UTC), com <strong>279 chamadas de LLM</strong> usando 3 agentes em paralelo (oracli: 156, general: 97, code: 26).</p>
       <br>
-      <p>O trabalho realizado — que incluiu diagnóstico e correção de CI/CD, geração de 10 suítes de testes, retroalimentação de 22 tickets Jira, criação de 4 páginas Confluence, e atribuição de responsáveis — teria consumido <strong>28-30 horas de um engenheiro sênior</strong>. O custo operacional total foi de <strong>$60.38</strong>, representando um ROI de <strong>9.374%</strong>.</p>
+      <p>O trabalho realizado — que incluiu diagnóstico e correção de CI/CD, geração de 10 suítes de testes, retroalimentação de 22 tickets Jira, criação de 4 páginas Confluence, e atribuição de responsáveis — teria consumido <strong>21.5 horas de um engenheiro sênior</strong> (~2.7 dias úteis). O custo operacional foi de <strong>~$10</strong> (Google AI Studio), representando uma aceleração de <strong>13.9×</strong>.</p>
+      <br>
+      <p>Considerando o sistema completo (27.3h de operação, 1.755 traces), o valor total criado foi de <strong>$5.720</strong> contra um custo de <strong>$60.38</strong> — um ROI de <strong>9.374%</strong>.</p>
     </div>
   </div>
 
@@ -384,26 +413,26 @@
     <div class="comparison">
       <div class="comparison-side">
         <div style="font-size: 3rem; margin-bottom: 0.5rem;">🤖</div>
-        <div style="font-size: 0.85rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em;">Execução AI</div>
-        <div style="font-size: 2rem; font-weight: 800; color: var(--green); margin: 0.5rem 0;">$60.38</div>
-        <div style="color: var(--text-dim); font-size: 0.9rem;">27.3h de operação</div>
-        <div style="color: var(--text-dim); font-size: 0.9rem;">5 agentes em paralelo</div>
-        <div style="color: var(--text-dim); font-size: 0.9rem;">1.755 chamadas de LLM</div>
+        <div style="font-size: 0.85rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em;">Execução AI (Remediação)</div>
+        <div style="font-size: 2rem; font-weight: 800; color: var(--green); margin: 0.5rem 0;">~$10</div>
+        <div style="color: var(--text-dim); font-size: 0.9rem;">93 minutos de execução</div>
+        <div style="color: var(--text-dim); font-size: 0.9rem;">3 agentes em paralelo</div>
+        <div style="color: var(--text-dim); font-size: 0.9rem;">279 chamadas de LLM</div>
       </div>
       <div class="comparison-vs">VS</div>
       <div class="comparison-side">
         <div style="font-size: 3rem; margin-bottom: 0.5rem;">👨‍💻</div>
         <div style="font-size: 0.85rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em;">Estimativa Humana</div>
-        <div style="font-size: 2rem; font-weight: 800; color: var(--red); margin: 0.5rem 0;">$5.720</div>
-        <div style="color: var(--text-dim); font-size: 0.9rem;">114.4h de trabalho</div>
+        <div style="font-size: 2rem; font-weight: 800; color: var(--red); margin: 0.5rem 0;">$1.076</div>
+        <div style="color: var(--text-dim); font-size: 0.9rem;">21.5h de trabalho</div>
         <div style="color: var(--text-dim); font-size: 0.9rem;">1 engenheiro sênior</div>
-        <div style="color: var(--text-dim); font-size: 0.9rem;">~14 dias úteis (8h/dia)</div>
+        <div style="color: var(--text-dim); font-size: 0.9rem;">~2.7 dias úteis (8h/dia)</div>
       </div>
     </div>
     <div class="card" style="margin-top: 1rem; text-align: center;">
-      <div style="font-size: 0.85rem; color: var(--text-dim);">ECONOMIA LÍQUIDA</div>
-      <div style="font-size: 2.5rem; font-weight: 800; color: var(--green);">$5.659,82</div>
-      <div style="color: var(--text-dim);">Redução de 94.4× no custo • Aceleração de 4.2× no tempo</div>
+      <div style="font-size: 0.85rem; color: var(--text-dim);">ECONOMIA LÍQUIDA (REMEDIAÇÃO)</div>
+      <div style="font-size: 2.5rem; font-weight: 800; color: var(--green);">$1.066</div>
+      <div style="color: var(--text-dim);">Redução de 107× no custo • Aceleração de 13.9× no tempo</div>
     </div>
   </div>
 
@@ -802,8 +831,8 @@
     <div class="metrics-grid">
       <div class="metric-card">
         <div class="metric-label">Throughput</div>
-        <div class="metric-value" style="color: var(--accent2);">64.3</div>
-        <div class="metric-detail">traces por hora (1.755 / 27.3h)</div>
+        <div class="metric-value" style="color: var(--accent2);">180</div>
+        <div class="metric-detail">traces por hora na remediação (279 / 1.55h)</div>
       </div>
       <div class="metric-card">
         <div class="metric-label">Paralelismo</div>
@@ -821,9 +850,9 @@
         <div class="metric-detail">243 de 282 tasks concluídas</div>
       </div>
       <div class="metric-card">
-        <div class="metric-label">Latência Média</div>
-        <div class="metric-value" style="color: var(--yellow);">~324ms</div>
-        <div class="metric-detail">por chamada de LLM</div>
+        <div class="metric-label">Speedup</div>
+        <div class="metric-value" style="color: var(--yellow);">13.9×</div>
+        <div class="metric-detail">21.5h humanas → 93 min AI</div>
       </div>
       <div class="metric-card">
         <div class="metric-label">Subagent Avg Runtime</div>
