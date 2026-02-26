@@ -623,6 +623,87 @@
 </div>
 
 <!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 11: PLATFORM STACK — OPENCLAW + AIOS -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="chapter">
+  <div class="chapter-num">Capítulo 11</div>
+  <h2>Stack de Plataforma: OpenClaw + AIOS</h2>
+
+  <p>O sistema opera sobre duas plataformas complementares. <span class="highlight">OpenClaw</span> é o runtime de agentes — gerencia sessões, subagentes, ferramentas, canais. <span class="highlight">AIOS</span> (Agent Intelligence Operating System) é a camada de telemetria e observabilidade — captura traces, custos, métricas e alimenta o dashboard em tempo real.</p>
+
+  <h3>11.1 OpenClaw — Runtime de Agentes</h3>
+  <p>OpenClaw é o gateway que conecta modelos de IA a ferramentas do mundo real. Cada ação executada neste relatório passou pelo OpenClaw Gateway rodando no EC2.</p>
+
+  <div class="card">
+    <table>
+      <thead><tr><th>Onde foi usado</th><th>Capability OpenClaw</th><th>Sprint</th><th>Detalhes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Spawning de Subagentes</strong></td><td><code>sessions_spawn</code></td><td>2 + 3</td><td>5 batches de subagentes na Sprint 3, 6 subagentes paralelos na Sprint 2 (code-audit, infra-health, jira-retroalimentação)</td></tr>
+        <tr><td><strong>Execução de ferramentas</strong></td><td><code>exec</code></td><td>2 + 3</td><td>Shell commands, scripts Python, github-api, jira-api, confluence-api — todos roteados pelo gateway</td></tr>
+        <tr><td><strong>Comunicação Telegram</strong></td><td>Channel routing</td><td>2 + 3</td><td>Toda interação com João via Telegram passa pelo OpenClaw como bridge bidirecional</td></tr>
+        <tr><td><strong>Heartbeat system</strong></td><td>Heartbeat polls</td><td>2 + 3</td><td>Checks periódicos: gateway status, streamer health, ROI calculator sync — via HEARTBEAT.md</td></tr>
+        <tr><td><strong>Model routing</strong></td><td>Provider config</td><td>2 + 3</td><td>Fallback chain configurada: Gemini 3 Flash → Gemini 2.5 Pro → Gemini 2.5 Flash. Antigravity como provider OAuth</td></tr>
+        <tr><td><strong>Subagent model config</strong></td><td><code>openclaw.json</code></td><td>3</td><td>Subagentes padronizados em <code>google-antigravity/gemini-3-flash</code> — decisão após incompatibilidade Sonnet/thinking.signature</td></tr>
+        <tr><td><strong>Slack notifications</strong></td><td><code>composio-exec</code> via gateway</td><td>2 + 3</td><td>Sprint kickoff + completion posts em #sprint-current e #announcements</td></tr>
+        <tr><td><strong>Jira lifecycle</strong></td><td><code>jira-api</code> skill</td><td>2 + 3</td><td>Create sprints, transition tickets (31→41→51), retroalimentar 35 tickets, assign 22 tickets</td></tr>
+        <tr><td><strong>Confluence docs</strong></td><td><code>confluence-api</code> skill</td><td>2</td><td>6 páginas criadas/atualizadas (3 análises + 3 EPICs merged com templates existentes)</td></tr>
+        <tr><td><strong>GitHub pushes</strong></td><td><code>github-api</code> skill</td><td>2 + 3</td><td>12 Edge Functions, 6 test suites, 1 migration, CI fixes — tudo via <code>github-api file push</code></td></tr>
+        <tr><td><strong>Memory persistence</strong></td><td>Workspace files</td><td>2 + 3</td><td>MEMORY.md, memory/2026-02-*.md, HEARTBEAT.md — continuidade entre sessões</td></tr>
+        <tr><td><strong>Web search + fetch</strong></td><td><code>web_search</code>, <code>web_fetch</code></td><td>2</td><td>Research de dependências (vitest versioning, eslint compatibility)</td></tr>
+        <tr><td><strong>Sprint close</strong></td><td><code>composio-exec</code> proxy</td><td>2</td><td>POST direto ao Jira REST API via Composio proxy (sprint.close não suportado nativamente)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <strong>Infraestrutura OpenClaw:</strong> Gateway rodando como container Docker (<code>openclaw-gateway</code>) no EC2 <code>sa-east-1</code> (IP: 18.229.126.186). Config em <code>~/.openclaw/openclaw.json</code> — 5 providers configurados, subagent limits: maxConcurrent=8, maxSpawnDepth=2.
+  </div>
+
+  <h3>11.2 AIOS — Telemetria e Observabilidade</h3>
+  <p>AIOS captura cada trace de execução, calcula custos em tempo real, e alimenta o dashboard de orquestração. Sem AIOS, não teríamos os dados para produzir este relatório.</p>
+
+  <div class="card">
+    <table>
+      <thead><tr><th>Onde foi usado</th><th>Componente AIOS</th><th>Sprint</th><th>Detalhes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Streaming de traces</strong></td><td><code>aios_gateway_streamer.py</code></td><td>2 + 3</td><td>Watcher de sessões JSONL do OpenClaw → insere traces na tabela <code>traces</code> do Supabase em tempo real. PID 18319 monitorado via heartbeat</td></tr>
+        <tr><td><strong>Multi-agent attribution</strong></td><td><code>detect_agent_id()</code></td><td>2 + 3</td><td>Função no streamer que identifica subagentes pelo marker <code>[Subagent Context]</code> nos arquivos JSONL — atribui cada trace ao agente correto (code/docs/general/infra/oracli)</td></tr>
+        <tr><td><strong>Custo em tempo real</strong></td><td><code>daily_costs</code> table</td><td>2 + 3</td><td>821 rows, 4 dates. Streamer calcula custo por provider (Google vs Antigravity) e insere automaticamente</td></tr>
+        <tr><td><strong>Dashboard de agentes</strong></td><td><code>agent-orchestrator</code></td><td>2 + 3</td><td>React app em Vercel lê tabelas AIOS (traces, tasks, agents, daily_costs, missions) via Supabase realtime subscriptions</td></tr>
+        <tr><td><strong>ROI em tempo real</strong></td><td><code>useRealTimeROI()</code></td><td>2 + 3</td><td>Hook React — calcula ROI direto dos traces, não do campo agents.roi. Single source of truth para todas as páginas do dashboard</td></tr>
+        <tr><td><strong>ROI backend sync</strong></td><td><code>scripts/roi-calculator.py</code></td><td>2 + 3</td><td>Roda no heartbeat, calcula ROI agregado e faz PATCH em agents.roi no Supabase. Backup do hook frontend</td></tr>
+        <tr><td><strong>Task tracking</strong></td><td><code>tasks</code> table</td><td>2 + 3</td><td>356 tasks registradas, 316 done. Distribuição: Code Agent (253), OraCLI (47), Infra (9), General (7)</td></tr>
+        <tr><td><strong>OTel integration</strong></td><td><code>diagnostics-otel</code></td><td>2</td><td>OpenTelemetry ativado no gateway — emissão de traces, metrics e logs via OTLP HTTP para backend no EC2</td></tr>
+        <tr><td><strong>Realtime subscriptions</strong></td><td>Supabase Realtime</td><td>2 + 3</td><td>Dashboard assina changes em 6 tabelas (traces, tasks, agents, daily_costs, missions, deliverables) — UI atualiza sem refresh</td></tr>
+        <tr><td><strong>pgvector memory</strong></td><td><code>openclaw_memory</code> DB</td><td>2</td><td>12 memories embedadas (768d vectors), 11 graph nodes. Usado no Stage 1 (Context Scout) do BMAD-CE</td></tr>
+        <tr><td><strong>Este relatório</strong></td><td>Queries AIOS</td><td>—</td><td>Todos os dados deste report foram obtidos via queries diretas às tabelas AIOS no Supabase (traces, daily_costs, tasks, agents)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>11.3 Fluxo Integrado: OpenClaw ↔ AIOS</h3>
+  <div class="card">
+    <div class="tl">
+      <div class="tl-i"><div class="tl-t">1. Trigger</div><div class="tl-x">João envia mensagem no <strong>Telegram</strong> → OpenClaw Channel Bridge recebe</div></div>
+      <div class="tl-i"><div class="tl-t">2. Orchestration</div><div class="tl-x"><strong>OpenClaw Gateway</strong> roteia para OraCLI (Claude Opus via Antigravity) → OraCLI decide a ação</div></div>
+      <div class="tl-i"><div class="tl-t">3. Subagent Spawn</div><div class="tl-x">OraCLI usa <strong>sessions_spawn</strong> do OpenClaw → Gateway cria sessão isolada com Gemini Flash</div></div>
+      <div class="tl-i"><div class="tl-t">4. Tool Execution</div><div class="tl-x">Subagente usa <strong>exec/github-api/jira-api</strong> via OpenClaw → código pushado, tickets atualizados</div></div>
+      <div class="tl-i"><div class="tl-t">5. Trace Capture</div><div class="tl-x"><strong>AIOS Streamer</strong> detecta JSONL do gateway → extrai agent_id, calcula custo, insere em Supabase</div></div>
+      <div class="tl-i"><div class="tl-t">6. Dashboard Update</div><div class="tl-x"><strong>Supabase Realtime</strong> notifica o dashboard → <strong>useRealTimeROI()</strong> recalcula ROI instantaneamente</div></div>
+      <div class="tl-i"><div class="tl-t">7. Heartbeat</div><div class="tl-x"><strong>OpenClaw Heartbeat</strong> roda roi-calculator.py → AIOS atualiza agents.roi como backup sync</div></div>
+    </div>
+  </div>
+
+  <h3>11.4 Números de Plataforma</h3>
+  <div class="sg sg-4">
+    <div class="sc"><div class="l">Traces AIOS</div><div class="n" style="color:var(--cy)">2,138</div><div class="d">100% success rate</div></div>
+    <div class="sc"><div class="l">Subagent Sessions</div><div class="n" style="color:var(--cy)">~20</div><div class="d">Spawned via OpenClaw</div></div>
+    <div class="sc"><div class="l">Tool Calls</div><div class="n" style="color:var(--cy)">~3,500</div><div class="d">exec, github-api, jira-api, etc.</div></div>
+    <div class="sc"><div class="l">Daily Cost Rows</div><div class="n" style="color:var(--cy)">821</div><div class="d">Streamer → Supabase</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
 <!-- METHODOLOGY -->
 <!-- ═══════════════════════════════════════════ -->
 <div class="chapter">
