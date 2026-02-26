@@ -8,311 +8,216 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #06060a;
-    --surface: #0e0e16;
-    --surface2: #16161f;
-    --surface3: #1e1e2a;
-    --border: #252535;
-    --border-light: #35354a;
-    --text: #eaeaf0;
-    --text-dim: #7a7a9a;
-    --text-muted: #55556a;
-    --accent: #7c6cf0;
-    --accent2: #a8a0ff;
-    --green: #34d399;
-    --green-bg: rgba(52,211,153,0.08);
-    --green-border: rgba(52,211,153,0.2);
-    --red: #f87171;
-    --yellow: #fbbf24;
-    --yellow-bg: rgba(251,191,36,0.08);
-    --blue: #60a5fa;
-    --blue-bg: rgba(96,165,250,0.08);
-    --cyan: #22d3ee;
-    --purple: #a78bfa;
+    --bg: #06060a; --surface: #0e0e16; --surface2: #16161f; --surface3: #1e1e2a;
+    --border: #252535; --border-light: #35354a;
+    --text: #eaeaf0; --text-dim: #7a7a9a; --text-muted: #55556a;
+    --accent: #7c6cf0; --accent2: #a8a0ff;
+    --green: #34d399; --green-bg: rgba(52,211,153,0.08); --green-border: rgba(52,211,153,0.2);
+    --red: #f87171; --yellow: #fbbf24; --yellow-bg: rgba(251,191,36,0.08);
+    --blue: #60a5fa; --blue-bg: rgba(96,165,250,0.08);
+    --cyan: #22d3ee; --purple: #a78bfa;
     --gradient: linear-gradient(135deg, #7c6cf0 0%, #a78bfa 50%, #c4b5fd 100%);
     --gradient-green: linear-gradient(135deg, #059669, #34d399);
-    --gradient-blue: linear-gradient(135deg, #2563eb, #60a5fa);
-    --gradient-warm: linear-gradient(135deg, #f59e0b, #fbbf24);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: 'Inter', -apple-system, system-ui, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.65;
-    -webkit-font-smoothing: antialiased;
-  }
+  body { font-family: 'Inter', -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; -webkit-font-smoothing: antialiased; }
   code, .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.85em; }
-
-  /* Layout */
   .container { max-width: 1140px; margin: 0 auto; padding: 0 2rem; }
 
-  /* Header */
-  .hero {
-    position: relative;
-    padding: 5rem 2rem 4rem;
-    text-align: center;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 50%; transform: translateX(-50%);
-    width: 800px; height: 800px;
-    background: radial-gradient(circle, rgba(124,108,240,0.06) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    padding: 0.4rem 1.2rem;
-    border-radius: 100px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--accent2);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 2rem;
-  }
+  /* Hero */
+  .hero { position: relative; padding: 5rem 2rem 3rem; text-align: center; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(124,108,240,0.06) 0%, transparent 70%); pointer-events: none; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--surface2); border: 1px solid var(--border); padding: 0.4rem 1.2rem; border-radius: 100px; font-size: 0.75rem; font-weight: 600; color: var(--accent2); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2rem; }
   .hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
   @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
-  .hero h1 {
-    font-size: 3.2rem;
-    font-weight: 900;
-    letter-spacing: -0.03em;
-    background: var(--gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 0.8rem;
-    line-height: 1.1;
-  }
-  .hero .sub { color: var(--text-dim); font-size: 1.1rem; font-weight: 400; }
+  .hero h1 { font-size: 3.2rem; font-weight: 900; letter-spacing: -0.03em; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.8rem; line-height: 1.1; }
+  .hero .sub { color: var(--text-dim); font-size: 1.1rem; }
   .hero .meta { color: var(--text-muted); font-size: 0.85rem; margin-top: 0.8rem; }
 
+  /* The Big Number */
+  .big-number-section { text-align: center; padding: 3rem 0; }
+  .big-number-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: center; max-width: 800px; margin: 0 auto; }
+  .big-number-cell { padding: 2rem; }
+  .big-number-cell .label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); font-weight: 600; margin-bottom: 0.5rem; }
+  .big-number-cell .num { font-family: 'JetBrains Mono', monospace; font-weight: 800; letter-spacing: -0.02em; }
+  .big-number-cell .detail { font-size: 0.8rem; color: var(--text-dim); margin-top: 0.4rem; }
+  .big-arrow { font-size: 2.5rem; color: var(--green); padding: 0 1.5rem; }
+
   /* Stat Grid */
-  .stat-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    overflow: hidden;
-    margin: 3rem 0;
-  }
-  .stat-cell {
-    background: var(--surface);
-    padding: 1.8rem 1.5rem;
-    text-align: center;
-  }
-  .stat-cell .label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); font-weight: 600; margin-bottom: 0.5rem; }
-  .stat-cell .num { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em; }
-  .stat-cell .detail { font-size: 0.75rem; color: var(--text-dim); margin-top: 0.3rem; }
-  .stat-cell .num.green { color: var(--green); }
-  .stat-cell .num.accent { color: var(--accent2); }
-  .stat-cell .num.yellow { color: var(--yellow); }
-  .stat-cell .num.blue { color: var(--blue); }
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin: 2rem 0; }
+  .stat-cell { background: var(--surface); padding: 1.6rem 1.2rem; text-align: center; }
+  .stat-cell .label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); font-weight: 600; margin-bottom: 0.4rem; }
+  .stat-cell .num { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.02em; }
+  .stat-cell .detail { font-size: 0.72rem; color: var(--text-dim); margin-top: 0.3rem; }
 
   /* Sections */
-  .section { margin: 3.5rem 0; }
-  .section-head {
-    display: flex; align-items: center; gap: 0.75rem;
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.8rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .section-head h2 { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em; }
-  .section-head .pill {
-    font-size: 0.65rem;
-    font-weight: 600;
-    padding: 0.2rem 0.6rem;
-    border-radius: 100px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
+  .section { margin: 3rem 0; }
+  .section-head { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--border); }
+  .section-head h2 { font-size: 1.1rem; font-weight: 700; }
+  .pill { font-size: 0.65rem; font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.05em; }
   .pill-green { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
   .pill-blue { background: var(--blue-bg); color: var(--blue); border: 1px solid rgba(96,165,250,0.2); }
   .pill-yellow { background: var(--yellow-bg); color: var(--yellow); border: 1px solid rgba(251,191,36,0.2); }
 
   /* Cards */
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.5rem;
-  }
-  .card-header { font-weight: 600; font-size: 0.85rem; color: var(--text-dim); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
   .card + .card { margin-top: 1rem; }
 
   /* Tables */
   table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-  th { text-align: left; font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--border); }
-  td { padding: 0.7rem 0.8rem; border-bottom: 1px solid rgba(37,37,53,0.6); vertical-align: top; }
+  th { text-align: left; font-weight: 600; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--border); }
+  td { padding: 0.65rem 0.8rem; border-bottom: 1px solid rgba(37,37,53,0.5); vertical-align: top; }
   tr:last-child td { border-bottom: none; }
-  tr:hover td { background: rgba(124,108,240,0.02); }
 
   /* Tags */
-  .tag { display: inline-flex; align-items: center; font-size: 0.7rem; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: 4px; }
+  .tag { display: inline-flex; align-items: center; font-size: 0.68rem; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: 4px; }
   .tag-green { background: var(--green-bg); color: var(--green); }
   .tag-yellow { background: var(--yellow-bg); color: var(--yellow); }
   .tag-red { background: rgba(248,113,113,0.1); color: var(--red); }
-  .tag-blue { background: var(--blue-bg); color: var(--blue); }
 
-  /* Sprint Tabs */
-  .sprint-compare {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-  .sprint-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-  }
-  .sprint-card-head {
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .sprint-card-head h3 { font-size: 1rem; font-weight: 700; }
-  .sprint-card-body { padding: 1.5rem; }
-  .sprint-card .metric-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid rgba(37,37,53,0.4);
-  }
-  .sprint-card .metric-row:last-child { border-bottom: none; }
-  .sprint-card .metric-label { font-size: 0.8rem; color: var(--text-dim); }
-  .sprint-card .metric-value { font-size: 0.9rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+  /* Sprint Compare */
+  .sprint-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .sprint-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .sprint-card-head { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .sprint-card-head h3 { font-size: 0.95rem; font-weight: 700; }
+  .sprint-card-body { padding: 1.2rem 1.5rem; }
+  .metric-row { display: flex; justify-content: space-between; align-items: baseline; padding: 0.45rem 0; border-bottom: 1px solid rgba(37,37,53,0.3); }
+  .metric-row:last-child { border-bottom: none; }
+  .metric-label { font-size: 0.78rem; color: var(--text-dim); }
+  .metric-value { font-size: 0.85rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
 
-  /* Progress Bar */
-  .progress-wrap { background: var(--surface2); border-radius: 8px; height: 28px; overflow: hidden; margin: 1rem 0; }
-  .progress-fill {
-    height: 100%;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--bg);
-    transition: width 1s ease;
-  }
+  /* Time bar */
+  .time-bar-wrap { margin: 2rem 0; }
+  .time-bar-label { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-dim); margin-bottom: 0.4rem; }
+  .time-bar { background: var(--surface2); border-radius: 10px; height: 40px; position: relative; overflow: hidden; }
+  .time-bar-fill { height: 100%; border-radius: 10px; display: flex; align-items: center; padding: 0 1rem; font-size: 0.75rem; font-weight: 700; }
 
   /* Scenario Cards */
-  .scenario-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-  }
-  .scenario-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.5rem;
-    text-align: center;
-    position: relative;
-    transition: border-color 0.2s;
-  }
-  .scenario-card:hover { border-color: var(--border-light); }
+  .scenario-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+  .scenario-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.3rem; text-align: center; transition: border-color 0.2s; }
   .scenario-card.active { border-color: var(--accent); box-shadow: 0 0 20px rgba(124,108,240,0.1); }
-  .scenario-card .scenario-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); font-weight: 600; }
-  .scenario-card .scenario-roi { font-size: 2rem; font-weight: 800; margin: 0.5rem 0; letter-spacing: -0.02em; }
-  .scenario-card .scenario-detail { font-size: 0.75rem; color: var(--text-dim); line-height: 1.5; }
+  .scenario-card .scenario-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); font-weight: 600; }
+  .scenario-card .scenario-roi { font-size: 1.8rem; font-weight: 800; margin: 0.4rem 0; letter-spacing: -0.02em; }
+  .scenario-card .scenario-detail { font-size: 0.72rem; color: var(--text-dim); line-height: 1.5; }
+
+  /* Progress */
+  .progress-wrap { background: var(--surface2); border-radius: 8px; height: 28px; overflow: hidden; margin: 1rem 0; }
+  .progress-fill { height: 100%; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: var(--bg); }
+
+  /* Mini stats */
+  .mini-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1rem 0; }
+  .mini-stat { background: var(--surface2); border-radius: 8px; padding: 1rem; text-align: center; }
+  .mini-stat .val { font-size: 1.4rem; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
+  .mini-stat .lbl { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.3rem; }
 
   /* Timeline */
   .timeline { position: relative; padding-left: 2rem; }
   .timeline::before { content: ''; position: absolute; left: 7px; top: 0; bottom: 0; width: 2px; background: var(--border); }
-  .timeline-item { position: relative; padding: 0.8rem 0; }
-  .timeline-item::before {
-    content: '';
-    position: absolute;
-    left: -2rem;
-    top: 1.1rem;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    border: 2px solid var(--accent);
-    background: var(--bg);
-  }
+  .timeline-item { position: relative; padding: 0.7rem 0; }
+  .timeline-item::before { content: ''; position: absolute; left: -2rem; top: 1rem; width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--accent); background: var(--bg); }
   .timeline-item.done::before { background: var(--green); border-color: var(--green); }
-  .timeline-time { font-size: 0.7rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
-  .timeline-text { font-size: 0.85rem; margin-top: 0.2rem; }
-  .timeline-detail { font-size: 0.75rem; color: var(--text-dim); }
-
-  /* Mini stat rows */
-  .mini-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1rem 0; }
-  .mini-stat { background: var(--surface2); border-radius: 8px; padding: 1rem; text-align: center; }
-  .mini-stat .val { font-size: 1.5rem; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
-  .mini-stat .lbl { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.3rem; }
+  .timeline-time { font-size: 0.68rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+  .timeline-text { font-size: 0.82rem; margin-top: 0.15rem; }
+  .timeline-detail { font-size: 0.72rem; color: var(--text-dim); }
 
   /* Footer */
-  .footer {
-    text-align: center;
-    padding: 3rem 2rem;
-    border-top: 1px solid var(--border);
-    margin-top: 4rem;
-    color: var(--text-muted);
-    font-size: 0.8rem;
-  }
+  .footer { text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--border); margin-top: 4rem; color: var(--text-muted); font-size: 0.8rem; }
   .footer a { color: var(--accent2); text-decoration: none; }
-  .footer a:hover { text-decoration: underline; }
 
-  /* Responsive */
   @media (max-width: 768px) {
     .stat-grid, .scenario-grid { grid-template-columns: repeat(2, 1fr); }
     .sprint-compare { grid-template-columns: 1fr; }
-    .mini-stats { grid-template-columns: 1fr; }
+    .big-number-grid { grid-template-columns: 1fr; }
+    .big-arrow { transform: rotate(90deg); padding: 0.5rem; }
     .hero h1 { font-size: 2rem; }
-    .stat-cell .num { font-size: 1.6rem; }
   }
 </style>
 </head>
 <body>
 
-<!-- Hero -->
 <div class="hero">
-  <div class="hero-badge"><span class="dot"></span> Sistema Ativo</div>
+  <div class="hero-badge"><span class="dot"></span> OraCLI Multi-Agent System</div>
   <h1>ROI Report</h1>
-  <div class="sub">OraCLI Multi-Agent System — Q1 2026 Core Financeiro</div>
-  <div class="meta">Sprints 2 & 3 • 23–26 Fevereiro 2026 • revenue-OS</div>
+  <div class="sub">Sprint 2 + Sprint 3 — Q1 Core Financeiro</div>
+  <div class="meta">23–26 Fevereiro 2026 • revenue-OS</div>
 </div>
 
 <div class="container">
 
-  <!-- System-Level Stats -->
-  <div class="stat-grid">
-    <div class="stat-cell">
-      <div class="label">Valor Total Gerado</div>
-      <div class="num green">$15.533</div>
-      <div class="detail">310.7h humanas equivalentes</div>
+  <!-- ============================== -->
+  <!-- THE BIG STORY: AI TIME vs HUMAN TIME -->
+  <!-- ============================== -->
+  <div class="big-number-section">
+    <div class="big-number-grid">
+      <div class="big-number-cell">
+        <div class="label">Tempo AI (ambas sprints)</div>
+        <div class="num" style="font-size: 3.5rem; color: var(--accent2);">2.6h</div>
+        <div class="detail">158 minutos de execução total</div>
+      </div>
+      <div class="big-arrow">→</div>
+      <div class="big-number-cell">
+        <div class="label">Equivalente humano</div>
+        <div class="num" style="font-size: 3.5rem; color: var(--green);">310h</div>
+        <div class="detail">38.8 dias úteis de um desenvolvedor</div>
+      </div>
     </div>
-    <div class="stat-cell">
-      <div class="label">Custo Operacional</div>
-      <div class="num yellow">$64.60</div>
-      <div class="detail">Somente Google API</div>
-    </div>
-    <div class="stat-cell">
-      <div class="label">ROI Acumulado</div>
-      <div class="num green">23.940%</div>
-      <div class="detail">Base: 12min/1K, $50/h</div>
-    </div>
-    <div class="stat-cell">
-      <div class="label">Q1 Progress</div>
-      <div class="num accent">78%</div>
-      <div class="detail">7/9 EPICs concluídos</div>
+    <div style="margin-top: 1.5rem;">
+      <span style="font-size: 3rem; font-weight: 900; color: var(--green);">118×</span>
+      <span style="font-size: 1rem; color: var(--text-dim); margin-left: 0.5rem;">mais rápido que execução humana</span>
     </div>
   </div>
 
-  <!-- ============================================ -->
-  <!-- Sprint Comparison -->
-  <!-- ============================================ -->
+  <!-- Time bars: visual comparison -->
+  <div class="card" style="margin: 2rem 0;">
+    <div class="time-bar-wrap">
+      <div class="time-bar-label"><span>Sprint 2 — AI: 93 min</span><span style="color:var(--green)">Humano: 114.4h (6,864 min)</span></div>
+      <div class="time-bar">
+        <div class="time-bar-fill" style="width: 100%; background: rgba(96,165,250,0.15); color: var(--text-dim); justify-content: flex-end;">6,864 min humanos</div>
+      </div>
+      <div class="time-bar" style="margin-top: 4px;">
+        <div class="time-bar-fill" style="width: 1.35%; background: var(--accent); color: white; min-width: 80px;">93 min</div>
+      </div>
+      <div style="text-align: right; font-size: 0.72rem; color: var(--green); margin-top: 0.3rem; font-weight: 600;">74× mais rápido</div>
+    </div>
+    <div class="time-bar-wrap" style="margin-top: 1.5rem;">
+      <div class="time-bar-label"><span>Sprint 3 — AI: 65 min</span><span style="color:var(--green)">Humano: 196.3h (11,778 min)</span></div>
+      <div class="time-bar">
+        <div class="time-bar-fill" style="width: 100%; background: rgba(52,211,153,0.1); color: var(--text-dim); justify-content: flex-end;">11,778 min humanos</div>
+      </div>
+      <div class="time-bar" style="margin-top: 4px;">
+        <div class="time-bar-fill" style="width: 0.55%; background: var(--green); color: white; min-width: 80px;">65 min</div>
+      </div>
+      <div style="text-align: right; font-size: 0.72rem; color: var(--green); margin-top: 0.3rem; font-weight: 600;">181× mais rápido</div>
+    </div>
+  </div>
+
+  <!-- System stats -->
+  <div class="stat-grid">
+    <div class="stat-cell">
+      <div class="label">Custo Total</div>
+      <div class="num" style="color:var(--yellow)">$64.60</div>
+      <div class="detail">Google API only</div>
+    </div>
+    <div class="stat-cell">
+      <div class="label">Valor Gerado</div>
+      <div class="num" style="color:var(--green)">$15.533</div>
+      <div class="detail">310h × $50/h</div>
+    </div>
+    <div class="stat-cell">
+      <div class="label">ROI</div>
+      <div class="num" style="color:var(--green)">23.940%</div>
+      <div class="detail">Cenário base</div>
+    </div>
+    <div class="stat-cell">
+      <div class="label">Q1 Progress</div>
+      <div class="num" style="color:var(--accent2)">78%</div>
+      <div class="detail">7/9 EPICs</div>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SPRINT COMPARISON -->
+  <!-- ============================== -->
   <div class="section">
     <div class="section-head">
       <h2>Sprint 2 vs Sprint 3</h2>
@@ -320,127 +225,95 @@
     </div>
     <div class="sprint-compare">
       <div class="sprint-card">
-        <div class="sprint-card-head">
-          <h3>Sprint 2</h3>
-          <span class="tag tag-green">Fechada 25/02</span>
-        </div>
+        <div class="sprint-card-head"><h3>Sprint 2 — Remediação</h3><span class="tag tag-green">25/02</span></div>
         <div class="sprint-card-body">
-          <div class="metric-row"><span class="metric-label">Foco</span><span class="metric-value" style="font-size:0.8rem; color:var(--text-dim)">Gap Remediation</span></div>
-          <div class="metric-row"><span class="metric-label">Duração</span><span class="metric-value">27.3h</span></div>
-          <div class="metric-row"><span class="metric-label">EPICs</span><span class="metric-value">5 entregues</span></div>
+          <div class="metric-row"><span class="metric-label">Execução AI</span><span class="metric-value">93 min</span></div>
+          <div class="metric-row"><span class="metric-label">Equiv. humano</span><span class="metric-value" style="color:var(--green)">114.4h</span></div>
+          <div class="metric-row"><span class="metric-label">Speedup</span><span class="metric-value">74×</span></div>
           <div class="metric-row"><span class="metric-label">User Stories</span><span class="metric-value">22</span></div>
+          <div class="metric-row"><span class="metric-label">Edge Functions</span><span class="metric-value">10 test suites</span></div>
           <div class="metric-row"><span class="metric-label">Traces</span><span class="metric-value">1,815</span></div>
-          <div class="metric-row"><span class="metric-label">Output Tokens</span><span class="metric-value">572K</span></div>
-          <div class="metric-row"><span class="metric-label">Custo Google</span><span class="metric-value" style="color:var(--yellow)">$60.38</span></div>
-          <div class="metric-row"><span class="metric-label">Horas Equiv.</span><span class="metric-value" style="color:var(--green)">114.4h</span></div>
-          <div class="metric-row"><span class="metric-label">Speedup</span><span class="metric-value">13.9×</span></div>
-          <div class="metric-row"><span class="metric-label">ROI</span><span class="metric-value" style="color:var(--green)">9,374%</span></div>
-          <div class="metric-row"><span class="metric-label">Modelo</span><span class="metric-value" style="font-size:0.75rem">Gemini Flash (pago)</span></div>
+          <div class="metric-row"><span class="metric-label">Custo</span><span class="metric-value" style="color:var(--yellow)">$60.38</span></div>
+          <div class="metric-row"><span class="metric-label">Custo/min AI</span><span class="metric-value">$0.65/min</span></div>
+          <div class="metric-row"><span class="metric-label">Modelo</span><span class="metric-value" style="font-size:0.72rem">Gemini Flash (pago)</span></div>
         </div>
       </div>
       <div class="sprint-card" style="border-color: var(--green-border);">
-        <div class="sprint-card-head" style="background: var(--green-bg);">
-          <h3>Sprint 3</h3>
-          <span class="tag tag-green">Fechada 26/02</span>
-        </div>
+        <div class="sprint-card-head" style="background:var(--green-bg);"><h3>Sprint 3 — Features</h3><span class="tag tag-green">26/02</span></div>
         <div class="sprint-card-body">
-          <div class="metric-row"><span class="metric-label">Foco</span><span class="metric-value" style="font-size:0.8rem; color:var(--text-dim)">New Feature Delivery</span></div>
-          <div class="metric-row"><span class="metric-label">Duração</span><span class="metric-value" style="color:var(--green)">45 min <span style="font-size:0.7rem; color:var(--green);">↓97%</span></span></div>
-          <div class="metric-row"><span class="metric-label">EPICs</span><span class="metric-value">2 entregues</span></div>
-          <div class="metric-row"><span class="metric-label">User Stories</span><span class="metric-value">13</span></div>
-          <div class="metric-row"><span class="metric-label">Traces</span><span class="metric-value">299 <span style="font-size:0.7rem; color:var(--green);">↓84%</span></span></div>
-          <div class="metric-row"><span class="metric-label">Output Tokens</span><span class="metric-value">~981K <span style="font-size:0.7rem; color:var(--green);">↑71%</span></span></div>
-          <div class="metric-row"><span class="metric-label">Custo Google</span><span class="metric-value" style="color:var(--green)">$4.22 <span style="font-size:0.7rem;">↓93%</span></span></div>
-          <div class="metric-row"><span class="metric-label">Horas Equiv.</span><span class="metric-value" style="color:var(--green)">196.3h <span style="font-size:0.7rem;">↑72%</span></span></div>
-          <div class="metric-row"><span class="metric-label">Speedup</span><span class="metric-value" style="color:var(--green)">261× <span style="font-size:0.7rem;">↑18.8×</span></span></div>
-          <div class="metric-row"><span class="metric-label">ROI</span><span class="metric-value" style="color:var(--green)">232,443%</span></div>
-          <div class="metric-row"><span class="metric-label">Modelo</span><span class="metric-value" style="font-size:0.75rem; color:var(--green)">Claude Opus ($0)</span></div>
+          <div class="metric-row"><span class="metric-label">Execução AI</span><span class="metric-value" style="color:var(--green)">65 min <span style="font-size:0.65rem">↓30%</span></span></div>
+          <div class="metric-row"><span class="metric-label">Equiv. humano</span><span class="metric-value" style="color:var(--green)">196.3h <span style="font-size:0.65rem">↑72%</span></span></div>
+          <div class="metric-row"><span class="metric-label">Speedup</span><span class="metric-value" style="color:var(--green)">181× <span style="font-size:0.65rem">↑2.4×</span></span></div>
+          <div class="metric-row"><span class="metric-label">User Stories</span><span class="metric-value">13 (76 SP)</span></div>
+          <div class="metric-row"><span class="metric-label">Edge Functions</span><span class="metric-value">12 (77KB)</span></div>
+          <div class="metric-row"><span class="metric-label">Traces</span><span class="metric-value">299 <span style="font-size:0.65rem; color:var(--green)">↓84%</span></span></div>
+          <div class="metric-row"><span class="metric-label">Custo</span><span class="metric-value" style="color:var(--green)">$4.22 <span style="font-size:0.65rem">↓93%</span></span></div>
+          <div class="metric-row"><span class="metric-label">Custo/min AI</span><span class="metric-value" style="color:var(--green)">$0.06/min</span></div>
+          <div class="metric-row"><span class="metric-label">Modelo</span><span class="metric-value" style="font-size:0.72rem; color:var(--green)">Claude Opus ($0)</span></div>
         </div>
       </div>
     </div>
-    <div class="card" style="margin-top: 1rem; background: var(--surface2); text-align: center; padding: 1rem;">
-      <span style="font-size: 0.8rem; color: var(--text-dim);">Insight chave: Migração para Antigravity (Claude via subscription) reduziu custo de inference em <strong style="color:var(--green)">93%</strong> enquanto aumentou output em <strong style="color:var(--green)">71%</strong></span>
+    <div class="card" style="margin-top:1rem; background:var(--surface2); text-align:center; padding:1rem;">
+      <span style="font-size:0.8rem; color:var(--text-dim);">Migração para Antigravity: custo/min caiu de <strong style="color:var(--yellow)">$0.65</strong> para <strong style="color:var(--green)">$0.06</strong> — output/min subiu <strong style="color:var(--green)">145%</strong></span>
     </div>
   </div>
 
-  <!-- ============================================ -->
-  <!-- ROI Scenarios -->
-  <!-- ============================================ -->
+  <!-- ============================== -->
+  <!-- ROI SCENARIOS -->
+  <!-- ============================== -->
   <div class="section">
     <div class="section-head">
       <h2>Cenários de ROI</h2>
       <span class="pill pill-yellow">Simulação</span>
     </div>
-    <p style="color: var(--text-dim); font-size: 0.85rem; margin-bottom: 1.5rem;">
-      Quatro perspectivas de cálculo baseadas em premissas de mercado diferentes.
-      Dados combinados: ~1.55M output tokens, $64.60 custo operacional.
+    <p style="color:var(--text-dim); font-size:0.82rem; margin-bottom:1.5rem;">
+      Mesmo dado (158 min AI, ~1.55M output tokens, $64.60 custo) — diferentes premissas de mercado.
     </p>
     <div class="scenario-grid">
       <div class="scenario-card">
         <div class="scenario-label">Conservador</div>
-        <div class="scenario-roi" style="color: var(--text-dim);">5.573%</div>
-        <div class="scenario-detail">
-          6 min / 1K tokens<br>
-          $35/h — Dev Júnior<br>
-          <span class="mono" style="color:var(--text-muted);">Valor: $3.665</span>
-        </div>
+        <div class="scenario-roi" style="color:var(--text-dim);">5.573%</div>
+        <div class="scenario-detail">6 min/1K tokens<br>$35/h — Júnior<br><span class="mono" style="color:var(--text-muted)">$3.665 valor</span></div>
       </div>
       <div class="scenario-card active">
-        <div class="scenario-label" style="color: var(--accent2);">Base (atual)</div>
-        <div class="scenario-roi" style="color: var(--green);">23.940%</div>
-        <div class="scenario-detail">
-          12 min / 1K tokens<br>
-          $50/h — Dev Pleno<br>
-          <span class="mono" style="color:var(--green);">Valor: $15.533</span>
-        </div>
+        <div class="scenario-label" style="color:var(--accent2);">Base (atual)</div>
+        <div class="scenario-roi" style="color:var(--green);">23.940%</div>
+        <div class="scenario-detail">12 min/1K tokens<br>$50/h — Pleno<br><span class="mono" style="color:var(--green)">$15.533 valor</span></div>
       </div>
       <div class="scenario-card">
         <div class="scenario-label">Otimista</div>
-        <div class="scenario-roi" style="color: var(--yellow);">60.013%</div>
-        <div class="scenario-detail">
-          20 min / 1K tokens<br>
-          $75/h — Dev Sênior<br>
-          <span class="mono" style="color:var(--text-muted);">Valor: $38.833</span>
-        </div>
+        <div class="scenario-roi" style="color:var(--yellow);">60.013%</div>
+        <div class="scenario-detail">20 min/1K tokens<br>$75/h — Sênior<br><span class="mono" style="color:var(--text-muted)">$38.833 valor</span></div>
       </div>
       <div class="scenario-card">
         <div class="scenario-label">Enterprise</div>
-        <div class="scenario-roi" style="color: var(--purple);">180.340%</div>
-        <div class="scenario-detail">
-          30 min / 1K tokens<br>
-          $150/h — Consultor<br>
-          <span class="mono" style="color:var(--text-muted);">Valor: $116.500</span>
-        </div>
+        <div class="scenario-roi" style="color:var(--purple);">180.340%</div>
+        <div class="scenario-detail">30 min/1K tokens<br>$150/h — Consultor<br><span class="mono" style="color:var(--text-muted)">$116.500 valor</span></div>
       </div>
     </div>
-    <div class="card" style="margin-top: 1rem; font-size: 0.75rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; padding: 1rem;">
-      hoursEquiv = (outputTokens / 1000) × minPer1K / 60 &nbsp;•&nbsp; 
-      value = hoursEquiv × hourlyRate &nbsp;•&nbsp; 
-      ROI = (value − cost) / cost × 100
+    <div class="card" style="margin-top:1rem; font-size:0.72rem; color:var(--text-muted); font-family:'JetBrains Mono',monospace; padding:1rem;">
+      hoursEquiv = (outputTokens / 1000) × minPer1K / 60 &nbsp;•&nbsp; value = hoursEquiv × hourlyRate &nbsp;•&nbsp; ROI = (value − cost) / cost × 100
     </div>
   </div>
 
-  <!-- ============================================ -->
-  <!-- Q1 Progress -->
-  <!-- ============================================ -->
+  <!-- ============================== -->
+  <!-- Q1 PROGRESS -->
+  <!-- ============================== -->
   <div class="section">
-    <div class="section-head">
-      <h2>Q1 Core Financeiro</h2>
-      <span class="pill pill-green">78% Completo</span>
-    </div>
+    <div class="section-head"><h2>Q1 Core Financeiro</h2><span class="pill pill-green">78%</span></div>
     <div class="card">
       <div class="progress-wrap">
-        <div class="progress-fill" style="width: 78%; background: var(--gradient-green);">7 / 9 EPICs</div>
+        <div class="progress-fill" style="width:78%; background:var(--gradient-green);">7 / 9 EPICs</div>
       </div>
       <table>
-        <thead><tr><th>EPIC</th><th>Nome</th><th>SP</th><th>Sprint</th><th>Status</th></tr></thead>
+        <thead><tr><th>EPIC</th><th>Nome</th><th>SP</th><th>Sprint</th><th></th></tr></thead>
         <tbody>
           <tr><td><code>01</code></td><td>Stripe Connect Platform</td><td>34</td><td>1+2</td><td><span class="tag tag-green">✅</span></td></tr>
           <tr><td><code>02</code></td><td>Plans & Products</td><td>21</td><td>2</td><td><span class="tag tag-green">✅</span></td></tr>
-          <tr style="background: var(--green-bg);"><td><code>03</code></td><td><strong>Subscriptions Engine</strong></td><td>55</td><td>3 ★</td><td><span class="tag tag-green">✅</span></td></tr>
+          <tr style="background:var(--green-bg);"><td><code>03</code></td><td><strong>Subscriptions Engine</strong></td><td>55</td><td>3</td><td><span class="tag tag-green">✅</span></td></tr>
           <tr><td><code>04</code></td><td>Invoicing Engine</td><td>40</td><td>4</td><td><span class="tag tag-yellow">⏳</span></td></tr>
           <tr><td><code>05</code></td><td>Payments Processing</td><td>34</td><td>2</td><td><span class="tag tag-green">✅</span></td></tr>
-          <tr style="background: var(--green-bg);"><td><code>06</code></td><td><strong>Checkout Sessions</strong></td><td>21</td><td>3 ★</td><td><span class="tag tag-green">✅</span></td></tr>
+          <tr style="background:var(--green-bg);"><td><code>06</code></td><td><strong>Checkout Sessions</strong></td><td>21</td><td>3</td><td><span class="tag tag-green">✅</span></td></tr>
           <tr><td><code>07</code></td><td>Payouts & Transfers</td><td>21</td><td>2</td><td><span class="tag tag-green">✅</span></td></tr>
           <tr><td><code>09</code></td><td>Core Metrics Engine</td><td>—</td><td>4</td><td><span class="tag tag-yellow">⏳</span></td></tr>
           <tr><td><code>10</code></td><td>Split Payments</td><td>34</td><td>2</td><td><span class="tag tag-green">✅</span></td></tr>
@@ -449,17 +322,14 @@
     </div>
   </div>
 
-  <!-- ============================================ -->
-  <!-- Sprint 3 Detail -->
-  <!-- ============================================ -->
+  <!-- ============================== -->
+  <!-- SPRINT 3 ENTREGÁVEIS -->
+  <!-- ============================== -->
   <div class="section">
-    <div class="section-head">
-      <h2>Sprint 3 — Entregáveis</h2>
-      <span class="pill pill-green">76 SP • 45 min</span>
-    </div>
+    <div class="section-head"><h2>Sprint 3 — Entregáveis</h2><span class="pill pill-green">76 SP • 65 min</span></div>
     <div class="mini-stats">
       <div class="mini-stat"><div class="val" style="color:var(--green)">12</div><div class="lbl">Edge Functions</div></div>
-      <div class="mini-stat"><div class="val" style="color:var(--blue)">77 KB</div><div class="lbl">Código Novo</div></div>
+      <div class="mini-stat"><div class="val" style="color:var(--blue)">77 KB</div><div class="lbl">Código novo</div></div>
       <div class="mini-stat"><div class="val" style="color:var(--yellow)">$0.35</div><div class="lbl">Custo / Function</div></div>
     </div>
     <div class="card">
@@ -474,7 +344,7 @@
           <tr><td>03.6</td><td>subscription-billing</td><td>7.0</td><td>5</td></tr>
           <tr><td>03.7</td><td>subscription-lifecycle</td><td>7.4</td><td>5</td></tr>
           <tr><td>03.8</td><td>subscriptions-dashboard</td><td>7.5</td><td>6</td></tr>
-          <tr style="border-top: 2px solid var(--border);"><td rowspan="4" style="vertical-align:middle; font-weight:700; color:var(--cyan);">06</td><td>06.1+2</td><td>checkout-sessions</td><td>7.9</td><td>10</td></tr>
+          <tr style="border-top:2px solid var(--border);"><td rowspan="4" style="vertical-align:middle; font-weight:700; color:var(--cyan);">06</td><td>06.1+2</td><td>checkout-sessions</td><td>7.9</td><td>10</td></tr>
           <tr><td>06.3</td><td>stripe-webhooks-checkout</td><td>5.2</td><td>5</td></tr>
           <tr><td>06.4</td><td>checkout-expire</td><td>5.1</td><td>3</td></tr>
           <tr><td>06.5</td><td>checkout-analytics</td><td>7.1</td><td>3</td></tr>
@@ -482,183 +352,94 @@
       </table>
     </div>
     <div class="card" style="margin-top:1rem;">
-      <div class="card-header">Infraestrutura</div>
       <table>
         <tbody>
-          <tr><td style="width:40%"><strong>Migration</strong></td><td>4 tabelas: <code>subscriptions</code>, <code>subscription_items</code>, <code>subscription_events</code>, <code>checkout_sessions</code></td></tr>
-          <tr><td><strong>Indexes</strong></td><td>10 indexes (user, status, stripe_id, customer, event_type)</td></tr>
-          <tr><td><strong>Security</strong></td><td>RLS policies + service_role access on all tables</td></tr>
-          <tr><td><strong>Tests</strong></td><td>6 test suites, ~60 test cases (Vitest)</td></tr>
-          <tr><td><strong>CI/CD</strong></td><td>CI green ✅ • Migration auto-applied via staging workflow</td></tr>
+          <tr><td style="width:35%"><strong>Migration</strong></td><td>4 tabelas • 10 indexes • RLS policies • updated_at triggers</td></tr>
+          <tr><td><strong>Tests</strong></td><td>6 suites • ~60 cases (Vitest)</td></tr>
+          <tr><td><strong>CI/CD</strong></td><td>CI ✅ • Migration auto-applied on staging deploy</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- ============================================ -->
-  <!-- Sprint 3 Timeline -->
-  <!-- ============================================ -->
+  <!-- ============================== -->
+  <!-- SPRINT 2 RESUMO -->
+  <!-- ============================== -->
   <div class="section">
-    <div class="section-head">
-      <h2>Sprint 3 — BMAD-CE Pipeline</h2>
-      <span class="pill pill-blue">65 min</span>
-    </div>
+    <div class="section-head"><h2>Sprint 2 — Remediação</h2><span class="pill pill-green">93 min</span></div>
     <div class="card">
-      <div class="timeline">
-        <div class="timeline-item done">
-          <div class="timeline-time">00:00</div>
-          <div class="timeline-text">Stage 1 — Context Scout</div>
-          <div class="timeline-detail">Confluence specs, repo analysis, existing code audit, dependency mapping</div>
-        </div>
-        <div class="timeline-item done">
-          <div class="timeline-time">00:05</div>
-          <div class="timeline-text">Stage 4 — Architecture</div>
-          <div class="timeline-detail">Schema design (4 tabelas), API mapping (32 endpoints), batch planning (5 batches)</div>
-        </div>
-        <div class="timeline-item done">
-          <div class="timeline-time">00:10</div>
-          <div class="timeline-text">Batch 1 — Foundation</div>
-          <div class="timeline-detail">Migration + subscription-create + subscription-cancel</div>
-        </div>
-        <div class="timeline-item done">
-          <div class="timeline-time">00:18</div>
-          <div class="timeline-text">Batch 2 — Lifecycle</div>
-          <div class="timeline-detail">subscription-pause + subscription-update + stripe-webhooks (8 events)</div>
-        </div>
-        <div class="timeline-item done">
-          <div class="timeline-time">00:26</div>
-          <div class="timeline-text">Batch 3 — Support</div>
-          <div class="timeline-detail">subscription-billing + subscription-lifecycle + subscriptions-dashboard</div>
-        </div>
-        <div class="timeline-item done">
-          <div class="timeline-time">00:34</div>
-          <div class="timeline-text">Batch 4 — Checkout (EPIC-06)</div>
-          <div class="timeline-detail">checkout-sessions + webhooks + expire + analytics</div>
-        </div>
-        <div class="timeline-item done">
-          <div class="timeline-time">00:42</div>
-          <div class="timeline-text">Batch 5 — QA (Stage 13)</div>
-          <div class="timeline-detail">6 test suites, ~60 test cases, CI validation</div>
-        </div>
-        <div class="timeline-item done">
-          <div class="timeline-time">00:50</div>
-          <div class="timeline-text">Gap Analysis (Stage 15)</div>
-          <div class="timeline-detail">Confluence spec validation: 47/63 requirements met, 0 blocking gaps</div>
-        </div>
-        <div class="timeline-item done">
-          <div class="timeline-time">01:00</div>
-          <div class="timeline-text">Close — 15/15 CONCLUÍDO</div>
-          <div class="timeline-detail">Jira retroalimentação, Slack update, Confluence sync</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ============================================ -->
-  <!-- Sprint 2 Summary -->
-  <!-- ============================================ -->
-  <div class="section">
-    <div class="section-head">
-      <h2>Sprint 2 — Resumo</h2>
-      <span class="pill pill-green">Remediação</span>
-    </div>
-    <div class="card">
-      <div class="mini-stats">
-        <div class="mini-stat"><div class="val" style="color:var(--green)">22</div><div class="lbl">User Stories</div></div>
-        <div class="mini-stat"><div class="val" style="color:var(--yellow)">$60.38</div><div class="lbl">Custo Google</div></div>
-        <div class="mini-stat"><div class="val" style="color:var(--blue)">114.4h</div><div class="lbl">Equiv. Humano</div></div>
-      </div>
       <table>
         <thead><tr><th>Área</th><th>Antes</th><th>Depois</th></tr></thead>
         <tbody>
-          <tr><td>CI/CD Pipeline</td><td><span class="tag tag-red">0% — 3 workflows quebrados</span></td><td><span class="tag tag-green">100% green</span></td></tr>
-          <tr><td>Test Coverage</td><td><span class="tag tag-yellow">52%</span></td><td><span class="tag tag-green">95%</span></td></tr>
-          <tr><td>Jira Descriptions</td><td><span class="tag tag-red">18% (4/22)</span></td><td><span class="tag tag-green">100%</span></td></tr>
-          <tr><td>PR Links</td><td><span class="tag tag-red">0%</span></td><td><span class="tag tag-green">100%</span></td></tr>
-          <tr><td>Confluence Docs</td><td><span class="tag tag-red">14%</span></td><td><span class="tag tag-green">100%</span></td></tr>
-          <tr><td>Assignees</td><td><span class="tag tag-red">0%</span></td><td><span class="tag tag-green">100%</span></td></tr>
+          <tr><td>CI/CD</td><td><span class="tag tag-red">0% — 3 workflows quebrados</span></td><td><span class="tag tag-green">100% green</span></td></tr>
+          <tr><td>Tests</td><td><span class="tag tag-yellow">52%</span></td><td><span class="tag tag-green">95% (+10 suites)</span></td></tr>
+          <tr><td>Jira Docs</td><td><span class="tag tag-red">18% (4/22)</span></td><td><span class="tag tag-green">100% (22/22)</span></td></tr>
+          <tr><td>PRs</td><td><span class="tag tag-red">0%</span></td><td><span class="tag tag-green">100% (20/20)</span></td></tr>
+          <tr><td>Confluence</td><td><span class="tag tag-red">14%</span></td><td><span class="tag tag-green">100% (4 EPICs)</span></td></tr>
+          <tr><td>Assignees</td><td><span class="tag tag-red">0%</span></td><td><span class="tag tag-green">100% (22/22)</span></td></tr>
         </tbody>
       </table>
-      <div style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-dim);">
-        <strong>Root causes corrigidos:</strong> vitest ^4.0.18 (inexistente) • @eslint/js 10.x conflito • NODE_ENV=production skipping devDeps • npm cache stale • Node 20→22
+      <div style="margin-top:1rem; font-size:0.78rem; color:var(--text-dim);">
+        <strong>Root causes:</strong> vitest ^4.0.18 inexistente • @eslint/js 10.x conflito • NODE_ENV=production • npm cache stale • Node 20→22
       </div>
     </div>
   </div>
 
-  <!-- ============================================ -->
-  <!-- Cost Breakdown -->
-  <!-- ============================================ -->
+  <!-- ============================== -->
+  <!-- TIMELINE -->
+  <!-- ============================== -->
   <div class="section">
-    <div class="section-head">
-      <h2>Breakdown de Custos</h2>
-      <span class="pill pill-yellow">$64.60 total</span>
-    </div>
+    <div class="section-head"><h2>Sprint 3 — Pipeline BMAD-CE</h2></div>
     <div class="card">
-      <table>
-        <thead><tr><th>Data</th><th>Google (pago)</th><th>Antigravity (subscription)</th><th>Real Cost</th></tr></thead>
-        <tbody>
-          <tr><td><code>23/02</code></td><td>$18.93</td><td>$0.00</td><td style="font-weight:700">$18.93</td></tr>
-          <tr><td><code>24/02</code></td><td>$23.74</td><td style="color:var(--text-muted)">$24.80 (nominal)</td><td style="font-weight:700">$23.74</td></tr>
-          <tr><td><code>25/02</code></td><td>$17.71</td><td style="color:var(--text-muted)">$171.45 (nominal)</td><td style="font-weight:700">$17.71</td></tr>
-          <tr><td><code>26/02</code></td><td>$4.22</td><td style="color:var(--text-muted)">$14.72 (nominal)</td><td style="font-weight:700">$4.22</td></tr>
-          <tr style="background:var(--surface2); font-weight:700;"><td>Total</td><td style="color:var(--yellow)">$64.60</td><td style="color:var(--text-muted)">$210.97</td><td style="color:var(--green)">$64.60</td></tr>
-        </tbody>
-      </table>
-      <div style="margin-top: 1rem; padding: 0.8rem; background: var(--surface2); border-radius: 8px; font-size: 0.8rem; color: var(--text-dim);">
-        <strong>Providers:</strong>
-        Google AI Studio (pay-per-use, ativo) •
-        Antigravity (subscription flat, $0 inference) •
-        Vercel AI Gateway (não usado) •
-        Minimax (não usado)
+      <div class="timeline">
+        <div class="timeline-item done"><div class="timeline-time">00:00</div><div class="timeline-text">Context Scout — Confluence specs, repo audit</div></div>
+        <div class="timeline-item done"><div class="timeline-time">00:05</div><div class="timeline-text">Architecture — 4 tabelas, 32 endpoints, 5 batches</div></div>
+        <div class="timeline-item done"><div class="timeline-time">00:10</div><div class="timeline-text">Batch 1 — Migration + create + cancel</div></div>
+        <div class="timeline-item done"><div class="timeline-time">00:18</div><div class="timeline-text">Batch 2 — pause + update + webhooks (8 events)</div></div>
+        <div class="timeline-item done"><div class="timeline-time">00:26</div><div class="timeline-text">Batch 3 — billing + lifecycle + dashboard</div></div>
+        <div class="timeline-item done"><div class="timeline-time">00:34</div><div class="timeline-text">Batch 4 — EPIC-06: checkout + webhooks + expire + analytics</div></div>
+        <div class="timeline-item done"><div class="timeline-time">00:42</div><div class="timeline-text">QA — 6 test suites, ~60 cases</div></div>
+        <div class="timeline-item done"><div class="timeline-time">00:50</div><div class="timeline-text">Gap Analysis — Confluence validation, 0 blocking gaps</div></div>
+        <div class="timeline-item done"><div class="timeline-time">01:05</div><div class="timeline-text" style="color:var(--green); font-weight:700;">Sprint FECHADA — 15/15 CONCLUÍDO</div></div>
       </div>
     </div>
   </div>
 
-  <!-- ============================================ -->
-  <!-- Lessons Learned -->
-  <!-- ============================================ -->
+  <!-- ============================== -->
+  <!-- COSTS -->
+  <!-- ============================== -->
   <div class="section">
-    <div class="section-head">
-      <h2>Lições Aprendidas</h2>
-    </div>
+    <div class="section-head"><h2>Custos</h2><span class="pill pill-yellow">$64.60</span></div>
     <div class="card">
       <table>
-        <thead><tr><th style="width:5%">#</th><th>Lição</th><th style="width:20%">Impacto</th></tr></thead>
+        <thead><tr><th>Data</th><th>Google (pago)</th><th>Antigravity (nominal)</th><th>Custo Real</th></tr></thead>
         <tbody>
-          <tr><td>1</td><td><strong>Antigravity elimina custo de inference</strong> — Sprint 3 custou $4.22 vs $60.38, mesma qualidade, 93% mais barato</td><td><span class="tag tag-green">$56/sprint</span></td></tr>
-          <tr><td>2</td><td><strong>Batch pattern com subagentes escala</strong> — 5 batches sequenciais de 3-4 funções mantém qualidade e rastreabilidade</td><td><span class="tag tag-green">12 functions/45min</span></td></tr>
-          <tr><td>3</td><td><strong>Dependabot sem CI guard é perigoso</strong> — bumps automáticos quebraram 3 deps sem ninguém perceber</td><td><span class="tag tag-red">CI 100% down 3 dias</span></td></tr>
-          <tr><td>4</td><td><strong>Gap analysis antes de fechar</strong> — validar contra Confluence specs identificou 7 gaps antes do close</td><td><span class="tag tag-green">Quality gate</span></td></tr>
-          <tr><td>5</td><td><strong>Paralelismo de subagentes é multiplicador</strong> — 5 subagentes em paralelo: 2h serial → 5min</td><td><span class="tag tag-green">24× speedup</span></td></tr>
-          <tr><td>6</td><td><strong>Push direto na main perde audit trail</strong> — commits sem PR dificulta review formal</td><td><span class="tag tag-yellow">Process gap</span></td></tr>
-          <tr><td>7</td><td><strong>Cache de 78% reduz custo drasticamente</strong> — prompt caching evitou reprocessar 150M tokens</td><td><span class="tag tag-green">~$750 economizados</span></td></tr>
+          <tr><td><code>23/02</code></td><td>$18.93</td><td style="color:var(--text-muted)">—</td><td style="font-weight:700">$18.93</td></tr>
+          <tr><td><code>24/02</code></td><td>$23.74</td><td style="color:var(--text-muted)">$24.80</td><td style="font-weight:700">$23.74</td></tr>
+          <tr><td><code>25/02</code> Sprint 2</td><td>$17.71</td><td style="color:var(--text-muted)">$171.45</td><td style="font-weight:700">$17.71</td></tr>
+          <tr><td><code>26/02</code> Sprint 3</td><td>$4.22</td><td style="color:var(--text-muted)">$14.72</td><td style="font-weight:700; color:var(--green)">$4.22</td></tr>
+          <tr style="background:var(--surface2);"><td><strong>Total</strong></td><td style="color:var(--yellow); font-weight:700">$64.60</td><td style="color:var(--text-muted)">$210.97</td><td style="color:var(--green); font-weight:700">$64.60</td></tr>
         </tbody>
       </table>
+      <div style="margin-top:1rem; padding:0.8rem; background:var(--surface2); border-radius:8px; font-size:0.78rem; color:var(--text-dim);">
+        Antigravity = subscription flat ($0 inference). Somente Google AI Studio é pay-per-use.
+      </div>
     </div>
   </div>
 
-  <!-- ============================================ -->
-  <!-- Methodology -->
-  <!-- ============================================ -->
+  <!-- ============================== -->
+  <!-- LESSONS -->
+  <!-- ============================== -->
   <div class="section">
-    <div class="section-head">
-      <h2>Metodologia</h2>
-    </div>
-    <div class="card" style="font-size: 0.85rem;">
-      <p style="margin-bottom: 1rem; color: var(--text-dim);">
-        Todas as entregas seguem o <strong style="color:var(--text)">BMAD-CE</strong> (Business-Mission-Architecture-Development — Cognitive Engineering), 
-        um pipeline de 18 estágios adaptado por complexidade.
-      </p>
+    <div class="section-head"><h2>Lições Aprendidas</h2></div>
+    <div class="card">
       <table>
-        <thead><tr><th>Stage</th><th>Responsável</th><th>Artefato</th></tr></thead>
         <tbody>
-          <tr><td>1. Context Scout</td><td>OraCLI</td><td>Memory + Confluence + repo search</td></tr>
-          <tr><td>4. Architecture</td><td>OraCLI</td><td>Schema, API design, batch plan</td></tr>
-          <tr><td>10-11. Spec + Dev</td><td>Code Agent (subagent)</td><td>Edge Functions, migrations</td></tr>
-          <tr><td>12. Code Review</td><td>OraCLI</td><td>Jira transitions, PR comments</td></tr>
-          <tr><td>13. QA</td><td>Code Agent</td><td>Test suites (Vitest)</td></tr>
-          <tr><td>15. Gap Analysis</td><td>OraCLI</td><td>Confluence vs implementation validation</td></tr>
-          <tr><td>17. Knowledge</td><td>OraCLI</td><td>Jira retroalimentação, memory updates</td></tr>
+          <tr><td style="width:5%; color:var(--text-muted)">1</td><td><strong>Antigravity zera custo de inference</strong> — $0.65/min → $0.06/min, mesma qualidade</td><td style="width:18%"><span class="tag tag-green">↓93% custo</span></td></tr>
+          <tr><td style="color:var(--text-muted)">2</td><td><strong>Batch pattern escala</strong> — subagentes em série de 3-4 itens, qualidade mantida</td><td><span class="tag tag-green">12 func/65min</span></td></tr>
+          <tr><td style="color:var(--text-muted)">3</td><td><strong>Dependabot sem CI guard é perigoso</strong> — 3 deps quebraram sem detecção</td><td><span class="tag tag-red">CI down 3 dias</span></td></tr>
+          <tr><td style="color:var(--text-muted)">4</td><td><strong>Gap analysis antes de fechar</strong> — Confluence validation evita surpresas</td><td><span class="tag tag-green">Quality gate</span></td></tr>
+          <tr><td style="color:var(--text-muted)">5</td><td><strong>Push direto perde audit trail</strong> — commits sem PR dificulta review</td><td><span class="tag tag-yellow">Process gap</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -666,17 +447,15 @@
 
 </div>
 
-<!-- Footer -->
 <div class="footer">
-  <p><strong>OraCLI</strong> — Multi-Agent AI System for Software Engineering</p>
-  <p>Powered by OpenClaw • Claude Opus 4.6 via Antigravity • Gemini 3 Flash</p>
-  <p style="margin-top: 0.8rem;">
+  <p><strong>OraCLI</strong> — Multi-Agent AI System</p>
+  <p style="margin-top:0.3rem;">Claude Opus 4.6 via Antigravity • Gemini 3 Flash • OpenClaw</p>
+  <p style="margin-top:0.8rem;">
     <a href="https://agent-orchestrator-nu.vercel.app">Dashboard</a> •
     <a href="https://vivaldi-revopos.atlassian.net/jira/software/projects/SCRUM/boards/1">Jira</a> •
-    <a href="https://vivaldi-revopos.atlassian.net/wiki/spaces/VR">Confluence</a> •
     <a href="https://github.com/juboyy/revenue-OS">GitHub</a>
   </p>
-  <p style="margin-top: 0.5rem; color: var(--text-muted);">Atualizado em 26/02/2026 • v2.0</p>
+  <p style="margin-top:0.5rem;">26/02/2026 • v3.0</p>
 </div>
 
 </body>
